@@ -1,5 +1,5 @@
 # chen-api
-[![actions status](https://img.shields.io/github/actions/workflow/status/DiviPeople/chen-api/rust.yml?branch=main&logo=github&label=CI)](https://github.com/DiviPeople/chen-api/actions)
+[![actions status](https://img.shields.io/github/actions/workflow/status/DiviPeople/chen-api/rust.yml?branch=master&logo=github&label=CI)](https://github.com/DiviPeople/chen-api/actions)
 [![minimum rustc 1.69](https://img.shields.io/badge/rustc-1.69+-orange?logo=rust)](https://rust-lang.github.io/rfcs/2495-min-rust-version.html)
 
 
