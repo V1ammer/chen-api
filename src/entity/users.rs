@@ -1,4 +1,4 @@
-use crate::config::{AppConfig, EmailConfig, ARGON2_CONFIG};
+use crate::config::{AppConfig, ARGON2_CONFIG};
 use chrono::{offset::Local, NaiveDateTime};
 use lettre::{
     message::header::ContentType, transport::smtp::authentication::Credentials, Message,
