@@ -156,13 +156,13 @@ async fn create_user(data: web::Data<AppState>, obj: web::Json<User>) -> impl Re
         ..Default::default()
     };
     let pass = Alphanumeric.sample_string(&mut rand::thread_rng(), 16);
-    user.send_password(&obj.email, &pass).await;
+    // user.send_password(&obj.email, &pass).await;
     user.set_id();
-    user.rc_create_user(&obj.full_name, &obj.email, &pass, &obj.user_name)
-        .await;
-    user.nc_create_user(&obj.full_name, &obj.email, &pass, &obj.user_name)
-        .await;
-    user.send_invitation(&obj.email).await;
+    // user.rc_create_user(&obj.full_name, &obj.email, &pass, &obj.user_name)
+    //     .await;
+    // user.nc_create_user(&obj.full_name, &obj.email, &pass, &obj.user_name)
+    //     .await;
+    // user.send_invitation(&obj.email).await;
     user.encrypt(pass.to_string());
     user.user_create_time_set();
     user.user_update_time_set();

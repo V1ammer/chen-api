@@ -20,14 +20,14 @@ pub struct AppConfig {
     pub db_password: String,
     pub jwt_secret: String,
     pub jwt_expires_in: String,
-    pub github_token: String,
-    pub org_url: String,
-    pub rc_org_url: String,
-    pub rc_token: String,
-    pub rc_admin_id: String,
-    pub nc_org_url: String,
-    pub nc_login_admin: String,
-    pub nc_password_admin: String,
+    // pub github_token: String,
+    // pub org_url: String,
+    // pub rc_org_url: String,
+    // pub rc_token: String,
+    // pub rc_admin_id: String,
+    // pub nc_org_url: String,
+    // pub nc_login_admin: String,
+    // pub nc_password_admin: String,
 }
 
 impl AppConfig {
@@ -44,37 +44,37 @@ impl AppConfig {
             db_password: env::var("DB_PASSWORD").expect("DB_PASSWORD must be set"),
             jwt_secret: env::var("JWT_SECRET").expect("JWT_SECRET must be set"),
             jwt_expires_in: env::var("JWT_EXPIRES_IN").expect("JWT_EXPIRES_IN must be set"),
-            github_token: env::var("GITHUB_TOKEN").expect("GITHUB_TOKEN must be set"),
-            org_url: env::var("ORG_URL").expect("ORG_URL must be set"),
-            rc_org_url: env::var("RC_ORG_URL").expect("RC_ORG_URL must be set"),
-            rc_token: env::var("RC_TOKEN").expect("RC_TOKEN must be set"),
-            rc_admin_id: env::var("RC_ADMIN_ID").expect("RC_ADMIN_ID must be set"),
-            nc_org_url: env::var("NC_ORG_URL").expect("NC_ORG_URL must be set"),
-            nc_login_admin: env::var("NC_LOGIN_ADMIN").expect("NC_LOGIN_ADMIN must be set"),
-            nc_password_admin: env::var("NC_PASSWORD_ADMIN")
-                .expect("NC_PASSWORD_ADMIN must be set"),
+            // github_token: env::var("GITHUB_TOKEN").expect("GITHUB_TOKEN must be set"),
+            // org_url: env::var("ORG_URL").expect("ORG_URL must be set"),
+            // rc_org_url: env::var("RC_ORG_URL").expect("RC_ORG_URL must be set"),
+            // rc_token: env::var("RC_TOKEN").expect("RC_TOKEN must be set"),
+            // rc_admin_id: env::var("RC_ADMIN_ID").expect("RC_ADMIN_ID must be set"),
+            // nc_org_url: env::var("NC_ORG_URL").expect("NC_ORG_URL must be set"),
+            // nc_login_admin: env::var("NC_LOGIN_ADMIN").expect("NC_LOGIN_ADMIN must be set"),
+            // nc_password_admin: env::var("NC_PASSWORD_ADMIN")
+            //     .expect("NC_PASSWORD_ADMIN must be set"),
         }
     }
 }
 
-#[derive(Deserialize)]
-pub struct EmailConfig {
-    pub email_from: String,
-    pub email_password: String,
-    pub email_reply_to: String,
-}
+// #[derive(Deserialize)]
+// pub struct EmailConfig {
+//     pub email_from: String,
+//     pub email_password: String,
+//     pub email_reply_to: String,
+// }
 
-impl EmailConfig {
-    pub fn from_env() -> EmailConfig {
-        dotenv().ok();
-
-        EmailConfig {
-            email_from: env::var("EMAIL_FROM").expect("EMAIL_FROM must be set"),
-            email_password: env::var("EMAIL_PASSWORD").expect("EMAIL_PASSWORD must be set"),
-            email_reply_to: env::var("EMAIL_REPLY_TO").expect("EMAIL_REPLY_TO must be set"),
-        }
-    }
-}
+// impl EmailConfig {
+//     pub fn from_env() -> EmailConfig {
+//         dotenv().ok();
+//
+//         EmailConfig {
+//             email_from: env::var("EMAIL_FROM").expect("EMAIL_FROM must be set"),
+//             email_password: env::var("EMAIL_PASSWORD").expect("EMAIL_PASSWORD must be set"),
+//             email_reply_to: env::var("EMAIL_REPLY_TO").expect("EMAIL_REPLY_TO must be set"),
+//         }
+//     }
+// }
 
 #[derive(Deserialize)]
 pub struct CorsConfig {

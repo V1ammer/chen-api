@@ -79,103 +79,103 @@ impl ActiveModel {
         self.password_hash = Set(hash);
     }
 
-    pub async fn send_password(&mut self, email: &str, password: &String) {
-        let email_cfg = EmailConfig::from_env();
+    // pub async fn send_password(&mut self, email: &str, password: &String) {
+    //     let email_cfg = EmailConfig::from_env();
+    //
+    //     let email_msg = Message::builder()
+    //         .from(email_cfg.email_from.parse().unwrap())
+    //         .reply_to(email_cfg.email_reply_to.parse().unwrap())
+    //         .to(email.parse().unwrap())
+    //         .subject("Your Chen password")
+    //         .header(ContentType::TEXT_PLAIN)
+    //         .body(String::from("Пароль для вашего аккаунта Chen:") + password)
+    //         .unwrap();
+    //
+    //     let creds = Credentials::new(email_cfg.email_from, email_cfg.email_password);
+    //
+    //     let mailer = SmtpTransport::relay("smtp.gmail.com")
+    //         .unwrap()
+    //         .credentials(creds)
+    //         .build();
+    //
+    //     match mailer.send(&email_msg) {
+    //         Ok(_) => println!("Email sent successfully!"),
+    //         Err(e) => println!("Could not send email: {e:?}"),
+    //     }
+    // }
 
-        let email_msg = Message::builder()
-            .from(email_cfg.email_from.parse().unwrap())
-            .reply_to(email_cfg.email_reply_to.parse().unwrap())
-            .to(email.parse().unwrap())
-            .subject("Your Chen password")
-            .header(ContentType::TEXT_PLAIN)
-            .body(String::from("Пароль для вашего аккаунта Chen:") + password)
-            .unwrap();
+    // pub async fn send_invitation(&mut self, email: &String) {
+    //     let json = json!({ "email": email });
+    //     let token = AppConfig::from_env().github_token;
+    //     let url = AppConfig::from_env().org_url;
+    //
+    //     Client::new()
+    //         .post(url)
+    //         .bearer_auth(&token)
+    //         .header(USER_AGENT, format!("Bearer {}", token.to_owned()))
+    //         .header("X-GitHub-Api-Version", "2022-11-28")
+    //         .header("Accept", "application/vnd.github+json")
+    //         .body(json.to_string())
+    //         .send()
+    //         .await
+    //         .unwrap();
+    // }
 
-        let creds = Credentials::new(email_cfg.email_from, email_cfg.email_password);
-
-        let mailer = SmtpTransport::relay("smtp.gmail.com")
-            .unwrap()
-            .credentials(creds)
-            .build();
-
-        match mailer.send(&email_msg) {
-            Ok(_) => println!("Email sent successfully!"),
-            Err(e) => println!("Could not send email: {e:?}"),
-        }
-    }
-
-    pub async fn send_invitation(&mut self, email: &String) {
-        let json = json!({ "email": email });
-        let token = AppConfig::from_env().github_token;
-        let url = AppConfig::from_env().org_url;
-
-        Client::new()
-            .post(url)
-            .bearer_auth(&token)
-            .header(USER_AGENT, format!("Bearer {}", token.to_owned()))
-            .header("X-GitHub-Api-Version", "2022-11-28")
-            .header("Accept", "application/vnd.github+json")
-            .body(json.to_string())
-            .send()
-            .await
-            .unwrap();
-    }
-
-    pub async fn rc_create_user(
-        &mut self,
-        full_name: &String,
-        email: &String,
-        password: &String,
-        user_name: &String,
-    ) {
-        let json =
-            json!({"name":full_name, "email": email, "password": password, "username": user_name});
-        let rc_org_url = AppConfig::from_env().rc_org_url;
-        let rc_token = AppConfig::from_env().rc_token;
-        let rc_admin_id = AppConfig::from_env().rc_admin_id;
-
-        let url_endpoint = format!("{}/api/v1/users.create", rc_org_url);
-
-        Client::new()
-            .post(url_endpoint)
-            .header("X-Auth-Token", rc_token)
-            .header("X-User-Id", rc_admin_id)
-            .header("Content-Type", "application/json")
-            .body(json.to_string())
-            .send()
-            .await
-            .unwrap();
-    }
-
-    pub async fn nc_create_user(
-        &mut self,
-        full_name: &String,
-        email: &String,
-        password: &String,
-        user_name: &String,
-    ) {
-        let create_list = format!(
-            "userid={}&email={}&password={}&displayName={}",
-            full_name, email, password, user_name
-        );
-        let nc_org_url = AppConfig::from_env().nc_org_url;
-        let nc_login_admin = AppConfig::from_env().nc_login_admin;
-        let nc_password_admin = AppConfig::from_env().nc_password_admin;
-
-        reqwest::Client::builder()
-            .redirect(reqwest::redirect::Policy::none())
-            .build()
-            .unwrap()
-            .post(nc_org_url)
-            .basic_auth(nc_login_admin, Some(nc_password_admin))
-            .header("OCS-APIRequest", "true")
-            .header("Content-Type", "application/x-www-form-urlencoded")
-            .body(create_list)
-            .send()
-            .await
-            .unwrap()
-            .text()
-            .await
-            .unwrap();
-    }
+    // pub async fn rc_create_user(
+    //     &mut self,
+    //     full_name: &String,
+    //     email: &String,
+    //     password: &String,
+    //     user_name: &String,
+    // ) {
+    //     let json =
+    //         json!({"name":full_name, "email": email, "password": password, "username": user_name});
+    //     let rc_org_url = AppConfig::from_env().rc_org_url;
+    //     let rc_token = AppConfig::from_env().rc_token;
+    //     let rc_admin_id = AppConfig::from_env().rc_admin_id;
+    //
+    //     let url_endpoint = format!("{}/api/v1/users.create", rc_org_url);
+    //
+    //     Client::new()
+    //         .post(url_endpoint)
+    //         .header("X-Auth-Token", rc_token)
+    //         .header("X-User-Id", rc_admin_id)
+    //         .header("Content-Type", "application/json")
+    //         .body(json.to_string())
+    //         .send()
+    //         .await
+    //         .unwrap();
+    // }
+    //
+    // pub async fn nc_create_user(
+    //     &mut self,
+    //     full_name: &String,
+    //     email: &String,
+    //     password: &String,
+    //     user_name: &String,
+    // ) {
+    //     let create_list = format!(
+    //         "userid={}&email={}&password={}&displayName={}",
+    //         full_name, email, password, user_name
+    //     );
+    //     let nc_org_url = AppConfig::from_env().nc_org_url;
+    //     let nc_login_admin = AppConfig::from_env().nc_login_admin;
+    //     let nc_password_admin = AppConfig::from_env().nc_password_admin;
+    //
+    //     reqwest::Client::builder()
+    //         .redirect(reqwest::redirect::Policy::none())
+    //         .build()
+    //         .unwrap()
+    //         .post(nc_org_url)
+    //         .basic_auth(nc_login_admin, Some(nc_password_admin))
+    //         .header("OCS-APIRequest", "true")
+    //         .header("Content-Type", "application/x-www-form-urlencoded")
+    //         .body(create_list)
+    //         .send()
+    //         .await
+    //         .unwrap()
+    //         .text()
+    //         .await
+    //         .unwrap();
+    // }
 }
