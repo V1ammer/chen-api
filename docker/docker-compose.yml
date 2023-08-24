@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres
+    image: postgres:15-alpine3.18
     volumes:
       - pg_volume:/var/lib/postgresql/data
     restart: always
@@ -10,6 +10,20 @@ services:
       POSTGRES_DB: actix
     ports:
       - "5432:5432"
+    network_mode: "host"
+  chen-api:
+    image: chen-api:latest
+    env_file:
+      - "../.env"
+    depends_on:
+      - postgres
+    build:
+      context: ..
+      dockerfile: ./docker/Dockerfile
+    ports:
+      - "80:8080"
+    network_mode: "host"
 volumes:
   pg_volume:
     name: pg_database
+    external: true
